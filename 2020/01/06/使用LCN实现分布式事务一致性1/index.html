@@ -83,14 +83,17 @@ function activateLightMode(){
 <li>免费/开源</li>
 <li>对应用的侵入性小(这里可以跟TCC做对比，业务方法都要实现try/confirm/cancel接口)</li>
 </ul>
-<h2 id="四-LCN的原理"><a href="#四-LCN的原理" class="headerlink" title="四  LCN的原理"></a>四  LCN的原理</h2><p><a href="LCN%E5%8E%9F%E7%90%86.png" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="LCN%E5%8E%9F%E7%90%86.png" class="lazyload"></a></p>
+<h2 id="四-LCN的原理"><a href="#四-LCN的原理" class="headerlink" title="四  LCN的原理"></a>四  LCN的原理</h2>
+
 <p>在上图中，微服务 A，微服务 B，TxManager 事务协调器，都需要去 Eureka 中注册服 务。Eureka 是用于 TxManager 与其他服务之间的相互服务发现。redis 是用于存放我们事务 组的信息以及补偿的信息。然后微服务 A 与微服务 B 他们都需要去配置上我们 TxClient 的 包架构（代码的包架构）；来支持我们的 LCN 框架,以及他们的数据库。</p>
 <h2 id="五-LCN的执行步骤"><a href="#五-LCN的执行步骤" class="headerlink" title="五  LCN的执行步骤"></a>五  LCN的执行步骤</h2><h3 id="1-创建事务组："><a href="#1-创建事务组：" class="headerlink" title="1.创建事务组："></a>1.创建事务组：</h3><p>事务组是指的我们在整个事务过程中把各个节点（微服务）单元的事务信息存储在一 个固定单元里。但这个信息并不是代表是事务信息，而是只是作为一个模块的标示信息。 创建事务组是指在事务发起方开始执行业务代码之前先调用 TxManager 创建事务组 对象，然后拿到事务标示 GroupId 的过程。</p>
 <p>简单来说，当在分布式系统发起一个操作时可能会涉及到多个事务即多个数据库的操作，那么这些由系统的一个操作带出来的多个事务就会被LCN统一储存在一个单元（事务组）里。</p>
 <h3 id="2-添加事务组："><a href="#2-添加事务组：" class="headerlink" title="2.添加事务组："></a>2.添加事务组：</h3><p> 添加事务组是指参与方在执行完业务方法以后，将该模块的事务信息添加通知给 TxManager 的操作。（注意时进行完业务方法之后才返回添加事务的通知，可见下面执行流程图）</p>
 <h3 id="3-关闭事务组："><a href="#3-关闭事务组：" class="headerlink" title="3.关闭事务组："></a>3.关闭事务组：</h3><p>是指在发起方执行完业务代码以后，将发起方执行结果状态通知给 TxManager 的动 作。当执行完关闭事务组的方法以后，TxManager 将根据事务组信息来通知相应的参与模 块提交或回滚事务。</p>
-<h3 id="4-执行流程图："><a href="#4-执行流程图：" class="headerlink" title="4.执行流程图："></a>4.执行流程图：</h3><p><a href="LCN%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.jpg" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="LCN%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.jpg" class="lazyload"></a></p>
-<h2 id="六-LCN的事务协调机制"><a href="#六-LCN的事务协调机制" class="headerlink" title="六  LCN的事务协调机制"></a>六  LCN的事务协调机制</h2><p><a href="LCN%E4%BA%8B%E5%8A%A1%E5%8D%8F%E8%B0%83%E6%9C%BA%E5%88%B6.png" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="LCN%E4%BA%8B%E5%8A%A1%E5%8D%8F%E8%B0%83%E6%9C%BA%E5%88%B6.png" class="lazyload"></a></p>
+<h3 id="4-执行流程图："><a href="#4-执行流程图：" class="headerlink" title="4.执行流程图："></a>4.执行流程图：</h3>
+
+<h2 id="六-LCN的事务协调机制"><a href="#六-LCN的事务协调机制" class="headerlink" title="六  LCN的事务协调机制"></a>六  LCN的事务协调机制</h2>
+
 <p>当一个服务执行成功/失败，TxManager会提交提交/回滚操作给 TxClient 模块。然后 TxCliient 模块下有一个连接池，就是框架自定义的一个连接池（如图 DB 连接池）；这个连接池其实就是在没有通知事务之前一直占有着 这次事务的连接资源，就是没有释放。但是他在切面里面执行了 close 方法。在执行 close 的时候。如果需要（TxManager）分布式事务框架的连接。他被叫做“假关闭”,也就是没有 关闭，只是在执行了一次关闭方法。实际的资源是没有释放的。这个资源是掌握在 LCN的连接池里的。 </p>
 <p>当 TxManager 通知提交或事务回滚的时候，TxManager 会通知我们的 TxClient 端。然后 TxClient 会去执行相应的提交或回滚。提交 或回滚之后再去关闭连接。这就是 LCN 的事务协调机制。说白了就是代理 DataSource 的机 制；相当于是拦截了一下连接池，控制了连接池的事务提交。</p>
 <h2 id="七-LCN的事务补偿机制"><a href="#七-LCN的事务补偿机制" class="headerlink" title="七  LCN的事务补偿机制"></a>七  LCN的事务补偿机制</h2><h3 id="什么是补偿事务机制？"><a href="#什么是补偿事务机制？" class="headerlink" title="什么是补偿事务机制？"></a>什么是补偿事务机制？</h3><p>LCN 的补偿事务原理是模拟上次失败事务的请求，然后传递给 TxClient 模块然后再次 执行该次请求事务。 简单的说：lcn 事务补偿是指在服务挂机和网络抖动情况下 txManager 无法通知事务单 元时。（通知不到也就两种原因服务挂了和网络出问题）在这种情况下 TxManager 会做一 个标示;然后返回给发起方。告诉他本次事务有存在没有通知到的情况。 那么如果是接收到这个信息之后呢，发起方就会做一个标示，标示本次事务是需要补偿 事务的。这就是事务补偿机制。</p>
