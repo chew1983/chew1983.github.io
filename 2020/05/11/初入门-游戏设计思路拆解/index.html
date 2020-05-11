@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>初入门-游戏设计思路拆解 | chew's blog</title><meta name="description" content="初入门-游戏设计思路拆解"><meta name="keywords" content="初入门"><meta name="author" content="chew"><meta name="copyright" content="chew"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="初入门-游戏设计思路拆解"><meta name="twitter:description" content="初入门-游戏设计思路拆解"><meta name="twitter:image" content="http://facai1983.top/img/Flow.jpg"><meta property="og:type" content="article"><meta property="og:title" content="初入门-游戏设计思路拆解"><meta property="og:url" content="http://facai1983.top/2020/05/11/%E5%88%9D%E5%85%A5%E9%97%A8-%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF%E6%8B%86%E8%A7%A3/"><meta property="og:site_name" content="chew's blog"><meta property="og:description" content="初入门-游戏设计思路拆解"><meta property="og:image" content="http://facai1983.top/img/Flow.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://facai1983.top/2020/05/11/%E5%88%9D%E5%85%A5%E9%97%A8-%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF%E6%8B%86%E8%A7%A3/"><link rel="next" title="产品经理VS产品运营：两者如何高效的配合" href="http://facai1983.top/2020/03/12/%E4%BA%A7%E5%93%81%E7%BB%8F%E7%90%86VS%E4%BA%A7%E5%93%81%E8%BF%90%E8%90%A5%EF%BC%9A%E4%B8%A4%E8%80%85%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E7%9A%84%E9%85%8D%E5%90%88/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: 'Press',
+    message_next: 'to bookmark this page'
+  },
+  runtime_unit: 'days',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  isHome: false,
+  isPost: true
+  
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">chew's blog</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> Movie</span></a></li><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-link"></i><span> Picture</span></a></li></ul></div></div></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/default.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">Articles</div><div class="length_num">93</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">Tags</div><div class="length_num">99</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">Categories</div><div class="length_num">92</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> Movie</span></a></li><li><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-link"></i><span> Picture</span></a></li></ul></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">Catalog</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#一-、游戏的本质"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">一 、游戏的本质</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#1-什么是情绪"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">1.什么是情绪</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#2-什么是情感"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">2.什么是情感</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#3-代入游戏示例"><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text">3.代入游戏示例</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#二-、游戏的目的"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">二 、游戏的目的</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#三、游戏的设计思路"><span class="toc_mobile_items-number">3.</span> <span class="toc_mobile_items-text">三、游戏的设计思路</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#1-游戏设计的技巧"><span class="toc_mobile_items-number">3.1.</span> <span class="toc_mobile_items-text">1.游戏设计的技巧</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#1）从三个阶段去分析"><span class="toc_mobile_items-number">3.1.1.</span> <span class="toc_mobile_items-text">1）从三个阶段去分析</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#2）基于三个角度让玩家产生【想玩】的欲望"><span class="toc_mobile_items-number">3.1.2.</span> <span class="toc_mobile_items-text">2）基于三个角度让玩家产生【想玩】的欲望</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#3）基于三个角度让玩家产生【好玩】的感受"><span class="toc_mobile_items-number">3.1.3.</span> <span class="toc_mobile_items-text">3）基于三个角度让玩家产生【好玩】的感受</span></a></li></ol></li></ol></li></ol></div></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-、游戏的本质"><span class="toc-number">1.</span> <span class="toc-text">一 、游戏的本质</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-什么是情绪"><span class="toc-number">1.1.</span> <span class="toc-text">1.什么是情绪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-什么是情感"><span class="toc-number">1.2.</span> <span class="toc-text">2.什么是情感</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-代入游戏示例"><span class="toc-number">1.3.</span> <span class="toc-text">3.代入游戏示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-、游戏的目的"><span class="toc-number">2.</span> <span class="toc-text">二 、游戏的目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、游戏的设计思路"><span class="toc-number">3.</span> <span class="toc-text">三、游戏的设计思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-游戏设计的技巧"><span class="toc-number">3.1.</span> <span class="toc-text">1.游戏设计的技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1）从三个阶段去分析"><span class="toc-number">3.1.1.</span> <span class="toc-text">1）从三个阶段去分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2）基于三个角度让玩家产生【想玩】的欲望"><span class="toc-number">3.1.2.</span> <span class="toc-text">2）基于三个角度让玩家产生【想玩】的欲望</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3）基于三个角度让玩家产生【好玩】的感受"><span class="toc-number">3.1.3.</span> <span class="toc-text">3）基于三个角度让玩家产生【好玩】的感受</span></a></li></ol></li></ol></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(http://facai1983.top/img/Flow.jpg)"><div id="post-info"><div id="post-title"><div class="posttitle">初入门-游戏设计思路拆解</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> Created 2020-05-11<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> Updated 2020-05-11</time><div class="post-meta-wordcount"><div class="post-meta-pv-cv"><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>Post View:</span><span id="busuanzi_value_page_pv"></span><span class="post-meta__separator">|</span><i class="fa fa-comments-o post-meta__icon fa-fw" aria-hidden="true"></i><span>comments:</span><a href="/2020/05/11/%E5%88%9D%E5%85%A5%E9%97%A8-%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF%E6%8B%86%E8%A7%A3/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count comment-count" data-xid="/2020/05/11/%E5%88%9D%E5%85%A5%E9%97%A8-%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF%E6%8B%86%E8%A7%A3/" itemprop="commentCount"></span></a></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h2 id="一-、游戏的本质"><a href="#一-、游戏的本质" class="headerlink" title="一 、游戏的本质"></a>一 、游戏的本质</h2><p>游戏作为艺术类目下的一个分支，归根到底是情绪和情感的体验，游戏设计时围绕的中心也是为玩家提供好的情绪和情感体验。</p>
+<h3 id="1-什么是情绪"><a href="#1-什么是情绪" class="headerlink" title="1.什么是情绪"></a>1.什么是情绪</h3><p>这里把体验分为两大类，情绪和情感。情绪是短时间的体验感受，你会因为某个片段的游戏内容感到兴奋、刺激、失落、愤怒、悲伤、挫败，这是情绪。</p>
+<h3 id="2-什么是情感"><a href="#2-什么是情感" class="headerlink" title="2.什么是情感"></a>2.什么是情感</h3><p>情感是长期杂糅以后升华的情绪，可能是爱、或者恨、或者荣誉、或者自豪、或者孤独。</p>
+<h3 id="3-代入游戏示例"><a href="#3-代入游戏示例" class="headerlink" title="3.代入游戏示例"></a>3.代入游戏示例</h3><p>比方说游戏中的某场战斗胜利以后玩家获得的满足感，就是一种典型的情绪体验，玩家赢得了比赛所以很开心很满足。还有另外一些东西比如社交/代入感等等，其实已经进阶带了情感层面，玩家对游戏里面的角色已经产生了感情，或者已经对游戏的世界观产生了认知，认为自己就是武侠世界的一个侠客。</p>
+<h2 id="二-、游戏的目的"><a href="#二-、游戏的目的" class="headerlink" title="二 、游戏的目的"></a>二 、游戏的目的</h2><p>因此，游戏的目的就是创造和管理情感和情绪的体验。通过玩法，通过视觉表达，以及各种互动机制，让玩家最终感受到的体验和我们想要给玩家的体验预期一致的，这样就实现了游戏的目的。</p>
+<h2 id="三、游戏的设计思路"><a href="#三、游戏的设计思路" class="headerlink" title="三、游戏的设计思路"></a>三、游戏的设计思路</h2><h3 id="1-游戏设计的技巧"><a href="#1-游戏设计的技巧" class="headerlink" title="1.游戏设计的技巧"></a>1.游戏设计的技巧</h3><h4 id="1）从三个阶段去分析"><a href="#1）从三个阶段去分析" class="headerlink" title="1）从三个阶段去分析"></a>1）从三个阶段去分析</h4><ul>
+<li>未正式体验游戏。玩家在第一眼看到游戏的时候，会产生【想玩】的欲望</li>
+<li>开始体验游戏。当玩家开始玩的时候，会感觉这个游戏【很好玩】</li>
+<li>体验一段时间以后。当玩家玩过一段时间以后，或者暂时不玩了一会，会期望返回游戏再次体验，觉得【停不下来】，或者会发出感慨【这个游戏真不错】；这里需要区分【停不下来】和【这个游戏真不错】两种有差异的体验感受，前者常见于可重复体验的游戏——如网游，后者常见于一次性体验的单机游戏，通过让玩家感受到【这个游戏真不错】而自发地将自己的体验分享出去，“安利”给别人。</li>
+</ul>
+<h4 id="2）基于三个角度让玩家产生【想玩】的欲望"><a href="#2）基于三个角度让玩家产生【想玩】的欲望" class="headerlink" title="2）基于三个角度让玩家产生【想玩】的欲望"></a>2）基于三个角度让玩家产生【想玩】的欲望</h4><p><strong>核心玩法。</strong>核心玩法的产生可以基于三种思路：</p>
+
+
+<p>我们在去确定一个游戏玩法或者原型的时候，大致会出现以上三种情况。前两个基本上可以算是同一类，称为竞品型的开发流程，第三个成为原创型的开发流程。</p>
+<ul>
+<li>竞品型开发流程。竞品其实是商业化游戏中最常见的方式，因为他成本和风险低，而且效果是可以预估的。在设计游戏之前，心里会有一个大概的模板：我要做某一个项目，大概和某一款游戏差不多，这个流程中要做的事情也和这款游戏差不多，针对这款游戏目前暴露出来的缺陷和不足，我们做一些怎样的改进，最后产出我们的游戏。这样的流程中，需要注意两点：1.关于目标用户，需要衡量做出这样一个改变，会不会使目标用户产生改变，如果改变，这个改变是好是坏。比方说剧情和画风的变化，可能使你的目标受众完全改变，一般情况下，如果是做两种游戏的结合，目标用户群会缩小。我们也许会认为用户群越大越好，实际需要视情况而定，有时候刚好就抢占了一个没有人关注过的蓝海市场，这样反倒会使你消除掉竞争对手这一干扰因素。2.A+B是否是矛盾的，会不会降低原来的体验。相比于其他竞品，这个改变是否能够增加游戏的差异性，竞品型开发流程的前提是，市面上已经有一或多款比我们成熟的游戏，那我们如何让玩家来玩我的游戏，在这种焦虑下，非常容易犯一个错误：为了和A游戏不一样，我就不断地搜集竞品B游戏，不断加上他们的元素，以达到目的。但需要思考，A+B的游戏是可行的方式，但是A与B的受众是否重合，A+B以后，出来的游戏还会有某一类目标用户吗，如果没有，那么这个组合就是不可行的。3.举个例子，女性向市场有一个非常热门的游戏机制——换装，那么我把换装的机制放到SLG比如《率土之滨》里面，他也许算是十分创新，但是受众是不成立的，这个错误也许在这个例子里面非常显而易见，但是放到实际工作中，却是经常出现的问题。</li>
+<li>原创型开发流程。大概有这么几个流程：需求目的/需求背景-》设计功能模块（概念框架）-》实现方案。这样的流程中，需要注意两点：1.目标用户是谁？这个主要依靠市场调研还有自身的洞察力，这群人分散在各地，鲜有平台能够将他们聚拢起来，还有就是如果把这个实现方案落地了，能否满足目标用户。与前3的例子方向一致，如果在SLG里面加入了换装机制，那么他其实就不是面向策略游戏的用户，而是更偏向养成游戏的用户。在流程中，我们的方向很容易走偏，所以需要时刻提醒自己目标用户的需求是什么，也需要非常理解用户的这个需求。2.这样的开发流程往往伴随着无数的验证迭代，因为我们大脑中的想法，跟实际实施的方案，往往有着巨大的鸿沟和差距的，所以需要不断地设计原型，自己玩，找人玩，根据反馈，回炉修改的一个反复，所以这种流程相对成本较高。</li>
+</ul>
+<p>这类流程主要面向两类游戏，一种就是解谜类的单机类游戏，这种游戏的体验时长往往比较短，控制这么短的时间，比作一个网游的投入要少很多，另外一种就是如PUBG的吃鸡类游戏，MOBA的经济类游戏，如今已经比较成熟了，但是在早期的版本里面，他们也是革新的游戏形式。</p>
+<p>因此，专注玩法要比体验过程难很多，后者可以站在别人的肩膀上，享受别人已经更新迭代了第99次的版本，前者则需要自己从零做起。</p>
+<p><strong>目标用户。</strong>目标用户需要呈现出非常强烈的共同偏好和特征。比如说女性用户算目标用户吗？现阶段是算的，因为现阶段女性向的游戏还是非常少的，女性玩家在游戏的表现仍然具有非常强的聚集性，比方说，聚集向具备画风精美/漂亮衣服/恋爱养成等特征的游戏，但未来可能随着游戏数量的增加，女性游戏市场的品类越来越细化，未来女性用户就不再能算是目标用户了，而是需要做进一步的细分。</p>
+<p>当看到这个词，能够联想到这类用户的偏好时即是目标用户。而不是简单的一个人口统计学的特征——他们年纪多大，做什么职业。一旦找出目标用户，所有的设计都是要围绕这些用户展开，不能有与之相悖的设计。如做竞技向游戏，我们就要避免在成长数值上出现不平衡，因为玩家已经形成一个共识了，竞技游戏玩的就是一个公平。</p>
+<p><strong>产品卖点</strong>。现在的市场并不缺游戏，如何在千千万万游戏中，让玩家来玩你的游戏，试着自己组织一下游戏的概念，让你跟别人去讲的时候，他是有吸引力的，最少一句话，最多三句话，把游戏里面最精彩的亮点描述出来，如果他听完觉得这个有意思，那么这个游戏就成了。一个特殊的概念，一个新的规则，一个特别新颖的美术风格，一种全新的代入体验，都有可能成为你的产品卖点。</p>
+<h4 id="3）基于三个角度让玩家产生【好玩】的感受"><a href="#3）基于三个角度让玩家产生【好玩】的感受" class="headerlink" title="3）基于三个角度让玩家产生【好玩】的感受"></a>3）基于三个角度让玩家产生【好玩】的感受</h4>
+
+<p>【好玩】偏向于短时的情绪，可以归在情绪管理范畴。实现一次情绪管理，可以拆分为三个角度：挑战/激励/节奏，挑战是我们在游戏中给玩家设立的目标，激励指玩家在完成目标后，让他满足的情绪得以释放，节奏指玩家在挑战过程中，情绪保持变化。</p>
+
+
+<p><strong>挑战</strong>。挑战角度可以分为三个概念：操作/策略/心流：1）操作。操作考验的是人的即时反应能力，运动力的极限等等，常见的机制有《崩坏三》以及其他MMO手游中的qta，核心在于，我面临挑战时需要快速的反应能力，带来紧张的刺激感，以及挑战成功以后，这种紧张的释放之后强烈的满足感和成就感，所以设计的核心在于加强烘托出前面的紧张刺激，以及强化后面的释放，主要考虑的元素有：反应的速度/时间/角度/方向等等；2）策略。策略之于操作最大的不同是，给了玩家足够的时间去得出解决挑战的最优解，策略的本质即是在现有的条件下寻求最优解，在完成挑战之后有种智商碾压的快感，考验的点在于：搭配和规划，棋牌类/回合制/卡牌游戏，大都是偏向于策略，对于我们现在玩到的各种游戏来说，大部分是操作与策略兼具，只是难度上有高低之分；3）心流。心流是一个很成熟的理念。需要注意的是，我们在将挑战难度维持在心流范围内的同时，可以根据适当的调低调高，达到玩家情绪波动的效果。</p>
+
+
+<p><strong>激励</strong>。激励的目的是让玩家在完成挑战之后，满足的情绪和成就感达到充分的释放。激励角度可以分为四个概念：反馈/奖励/规律/成长：1）反馈。玩家的每一个动作，必须基于其相应的反馈，告诉他这个按键是对是错；2）奖励。玩家完成挑战以后，要给予其相应的奖励，这种奖励可以是金币/装备等等，还有一种形式经常被忽略，完成这个挑战之后，能否从以往的行为中总结出规律，即为什么会挑战成功，为什么会挑战失败；3）成长。成长和奖励的区别在于奖励是一次性的，而成长是可以持续的，假如只是给予了一个奖励放在这里，玩家获得的是一瞬间的满足感，如果这个奖励是金币，玩家可以通过它进行自我能力的提升，那么玩家就会认为这个东西是对他长期有效的，即为成长。</p>
+
+
+<p><strong>节奏</strong>。节奏是在游戏中非常重要的一个元素，通过节奏控制玩家在游戏过程中的情绪变化。节奏角度可以分为四个概念：时长控制/兴奋点/情绪升级：1）时长控制。首先需要有意识地设计游戏时长，一场战斗的时间大概多久，太长或太短都是非常无聊的；2）兴奋点。兴奋点即是在短时间的战斗里面产生一个激烈的变化，比如常见的技能机制，一下一下的平砍会很无聊，于是加入了技能元素，还有一个CD，这样每隔一段时间，就可以释放一次技能，造成比普攻更大的伤害；3）随机性伴随着不可预料和无数种可能性。如果再在技能机制上加一层随机的因素，比如暴击率，玩家就会面临双层压力，并会仔细思考应付的策略。</p>
+<p>注：接下来的笔记计划主要是收集一下前人记录下的策划新人常踩的坑以及做完虚幻4demo以后的项目小总结。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">chew</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://facai1983.top/2020/05/11/%E5%88%9D%E5%85%A5%E9%97%A8-%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF%E6%8B%86%E8%A7%A3/">http://facai1983.top/2020/05/11/%E5%88%9D%E5%85%A5%E9%97%A8-%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF%E6%8B%86%E8%A7%A3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%88%9D%E5%85%A5%E9%97%A8/">初入门    </a></div><div class="post_share"><div class="social-share" data-image="http://facai1983.top/img/Flow.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> Donate<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.png" alt="微信"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.png" alt="支付寶"><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2020/03/12/%E4%BA%A7%E5%93%81%E7%BB%8F%E7%90%86VS%E4%BA%A7%E5%93%81%E8%BF%90%E8%90%A5%EF%BC%9A%E4%B8%A4%E8%80%85%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E7%9A%84%E9%85%8D%E5%90%88/"><img class="next_cover lazyload" data-src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">Next Post</div><div class="next_info"><span>产品经理VS产品运营：两者如何高效的配合</span></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> Comment</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
+var verify = false == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'jbVBGNiWBwRavzd2W1J9xR0l-gzGzoHsz',
+  appKey:'5O4E9wX4KIBNWRdKriSVX6mY',
+  placeholder:'Please leave your footprints',
+  avatar:'monsterid',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'zh-cn',
+  recordIP: true
+});</script></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By chew</div><div class="framework-info"><span>Driven </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="Read Mode"></i><i class="fa fa-plus" id="font_plus" title="Increase font size"></i><i class="fa fa-minus" id="font_minus" title="Decrease font size"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="Traditional Chinese and Simplified Chinese Conversion" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="Dark Mode"></i></div><div id="rightside-config-show"><div id="rightside_config" title="Setting"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="Scroll to comment"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="Table of Contents" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="Back to top" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>
